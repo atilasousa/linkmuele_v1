@@ -6,17 +6,13 @@ const deleteOldUrl = async () => {
   const oneMonthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
   const collectionRef = collection(db, "analysedLinks");
-  const querySnapshot = await collectionRef
-    .where("createdAt", "<", oneMonthAgo)
-    .get();
+  const querySnapshot = await collectionRef.get();
 
-  const batch = db.batch();
+  if (querySnapshot.size > 0) {
+    const firstDocument = querySnapshot.docs[0];
 
-  querySnapshot.forEach((doc) => {
-    batch.delete(doc.ref);
-  });
-
-  await batch.commit();
+    await firstDocument.ref.delete();
+  }
 };
 
 deleteOldUrl();
