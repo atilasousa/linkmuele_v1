@@ -1,0 +1,32 @@
+{
+  "name": "LinkMuele",
+  "description": "Verificador de Links",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_title": "LinkMuele",
+    "browser_action": {}
+  },
+  "icons": {
+    "32": "./assets/images/icon/32.png",
+    "16": "./assets/images/icon/16.png",
+    "48": "./assets/images/icon/48.png",
+    "128": "./assets/images/icon/128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["*.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": ["tabs", "activeTab", "scripting", "notifications", "storage"]
+}
